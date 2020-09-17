@@ -10,18 +10,18 @@ class App extends Component {
     message: "",
 
     errors: {
-      username: false,
-      email: false,
-      password: false,
-      accept: false,
+      username: true,
+      email: true,
+      password: true,
+      accept: true,
     },
   };
 
   messages = {
     username_incorrect:
-      "Nazwa musi być dłuższa niż 10 znaków i nie może zawierać spacji",
+      "Nazwa musi być dłuższa niż 4 znaków i nie może zawierać spacji",
     email_incorrect: "Brak @ w emailu",
-    password_incorrect: "Hasło musi mieć 8 znaków",
+    password_incorrect: "Hasło musi więcej niż 7 znaków",
     accept_incorrect: "Nie potwierdzona zgoda",
   };
   inputHandle = (e) => {
@@ -39,15 +39,66 @@ class App extends Component {
       });
     }
   };
+  formValidation = () => {
+    let username = false;
+    let email = false;
+    let password = false;
+    let accept = false;
+    let correct = false;
+    if (
+      this.state.username.length > 4 &&
+      this.state.username.indexOf(" " !== -1)
+    ) {
+      username = true;
+    }
+    if (this.state.email.includes("@")) {
+      email = true;
+    }
+    if (this.state.password.length > 4) {
+      password = true;
+    }
+    if (this.state.accept) {
+      accept = true;
+    }
+    if (username && email && password && accept) {
+      correct = true;
+    }
+    return {
+      username,
+      email,
+      password,
+      accept,
+      correct,
+    };
+  };
   handleSubmit = (e) => {
+    const validation = this.formValidation();
+
     e.preventDefault();
-    this.setState({
-      username: "",
-      email: "",
-      password: "",
-      accept: false,
-      message: "",
-    });
+    if (validation.correct) {
+      this.setState({
+        username: "",
+        email: "",
+        password: "",
+        accept: false,
+        message: "",
+        errors: {
+          username: true,
+          email: true,
+          password: true,
+          accept: true,
+        },
+      });
+    } else {
+      this.setState({
+        errors: {
+          username: validation.username,
+          email: validation.email,
+          password: validation.password,
+          accept: validation.accept,
+        },
+      });
+    }
   };
   render() {
     return (
@@ -62,7 +113,11 @@ class App extends Component {
               name="username"
               onChange={this.inputHandle}
             />
+            {this.state.errors.username ? (
+              <span>{this.messages.username_incorrect}</span>
+            ) : null}
           </label>
+
           <label htmlFor="email">
             email:
             <input
@@ -72,6 +127,9 @@ class App extends Component {
               value={this.state.email}
               onChange={this.inputHandle}
             />
+            {this.state.errors.email ? (
+              <span>{this.messages.email_incorrect}</span>
+            ) : null}
           </label>
           <label htmlFor="password">
             password:
@@ -82,8 +140,11 @@ class App extends Component {
               value={this.state.password}
               onChange={this.inputHandle}
             />
+            {this.state.errors.password ? (
+              <span>{this.messages.password_incorrect}</span>
+            ) : null}
           </label>
-          <label htmlFor="checkbox">
+          <label htmlFor="accept">
             <input
               type="checkbox"
               id="accept"
@@ -91,9 +152,12 @@ class App extends Component {
               checked={this.state.accept}
               onChange={this.inputHandle}
             />
-            I agree all this shit:
+            I agree all this shit
+            {this.state.errors.accept ? (
+              <span>{this.messages.accept_incorrect}</span>
+            ) : null}
           </label>
-          <button>Submit</button>
+          <button>Submait</button>
         </form>
       </div>
     );
