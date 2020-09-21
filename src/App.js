@@ -10,10 +10,10 @@ class App extends Component {
     message: "",
 
     errors: {
-      username: true,
-      email: true,
-      password: true,
-      accept: true,
+      username: false,
+      email: false,
+      password: false,
+      accept: false,
     },
   };
 
@@ -83,10 +83,10 @@ class App extends Component {
         accept: false,
         message: "",
         errors: {
-          username: true,
-          email: true,
-          password: true,
-          accept: true,
+          username: false,
+          email: false,
+          password: false,
+          accept: false,
         },
       });
     } else {
