@@ -47,11 +47,11 @@ class App extends Component {
     let correct = false;
     if (
       this.state.username.length > 4 &&
-      this.state.username.indexOf(" " !== -1)
+      this.state.username.indexOf(" " === -1)
     ) {
       username = true;
     }
-    if (this.state.email.includes("@")) {
+    if (this.state.email.indexOf("@") !== -1) {
       email = true;
     }
     if (this.state.password.length > 4) {
@@ -73,6 +73,7 @@ class App extends Component {
   };
   handleSubmit = (e) => {
     const validation = this.formValidation();
+    console.log(validation);
 
     e.preventDefault();
     if (validation.correct) {
@@ -92,10 +93,10 @@ class App extends Component {
     } else {
       this.setState({
         errors: {
-          username: validation.username,
-          email: validation.email,
-          password: validation.password,
-          accept: validation.accept,
+          username: !validation.username,
+          email: !validation.email,
+          password: !validation.password,
+          accept: !validation.accept,
         },
       });
     }
