@@ -4,99 +4,90 @@ import "./App.css";
 class App extends Component {
   state = {
     username: "",
-    email: "",
     password: "",
-    accept: false,
-    message: "",
+    email: "",
+    checkbox: false,
 
     errors: {
       username: false,
-      email: false,
       password: false,
-      accept: false,
+      email: false,
+      checkbox: false,
     },
   };
 
   messages = {
-    username_incorrect:
-      "Nazwa musi być dłuższa niż 4 znaków i nie może zawierać spacji",
-    email_incorrect: "Brak @ w emailu",
-    password_incorrect: "Hasło musi więcej niż 7 znaków",
-    accept_incorrect: "Nie potwierdzona zgoda",
+    usernameError: "nazwa powinna zawierać conajmniej 4 znaki",
+    passwordError: "hasło powinno zawierać conajmniej 6 znaków",
+    emailError: "Brakuje @",
+    checkboxError: "Zaznacz zgode!",
   };
-  inputHandle = (e) => {
-    const name = e.target.name;
-    const type = e.target.type;
-    if (type === "checkbox") {
-      const checked = e.target.checked;
+  handleInputChange = (e) => {
+    if (e.target.type === "checkbox") {
       this.setState({
-        [name]: checked,
+        [e.target.name]: e.target.checked,
       });
     } else {
-      const value = e.target.value;
       this.setState({
-        [name]: value,
+        [e.target.name]: e.target.value,
       });
     }
   };
   formValidation = () => {
     let username = false;
-    let email = false;
     let password = false;
-    let accept = false;
+    let email = false;
+    let checkbox = false;
     let correct = false;
-    if (
-      this.state.username.length > 4 &&
-      this.state.username.indexOf(" " === -1)
-    ) {
+
+    if (this.state.username.length >= 4) {
       username = true;
     }
-    if (this.state.email.indexOf("@") !== -1) {
+
+    if (this.state.email.includes("@")) {
       email = true;
     }
-    if (this.state.password.length > 4) {
+    if (this.state.password.length >= 6) {
       password = true;
     }
-    if (this.state.accept) {
-      accept = true;
+    if (this.state.checkbox) {
+      checkbox = true;
     }
-    if (username && email && password && accept) {
+    if (username && password && email && checkbox) {
       correct = true;
     }
     return {
       username,
       email,
       password,
-      accept,
+      checkbox,
       correct,
     };
   };
-  handleSubmit = (e) => {
-    const validation = this.formValidation();
-    console.log(validation);
-
+  handleFormSubmit = (e) => {
+    console.log(this.formValidation());
     e.preventDefault();
-    if (validation.correct) {
+    if (this.formValidation().correct) {
       this.setState({
         username: "",
-        email: "",
         password: "",
-        accept: false,
-        message: "",
+        email: "",
+        checkbox: false,
+
         errors: {
           username: false,
-          email: false,
           password: false,
-          accept: false,
+          email: false,
+          checkbox: false,
         },
       });
     } else {
       this.setState({
         errors: {
-          username: !validation.username,
-          email: !validation.email,
-          password: !validation.password,
-          accept: !validation.accept,
+          username: !this.formValidation().username,
+          password: !this.formValidation().password,
+          email: !this.formValidation().email,
+          checkbox: !this.formValidation().checkbox,
         },
       });
     }
@@ -104,61 +95,52 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">
-            username:
+        <form onSubmit={this.handleFormSubmit}>
+          <label htmlFor="user">
+            Username:
             <input
               type="text"
-              value={this.state.username}
-              id="username"
+              onChange={this.handleInputChange}
               name="username"
-              onChange={this.inputHandle}
             />
             {this.state.errors.username ? (
-              <span>{this.messages.username_incorrect}</span>
-            ) : null}
-          </label>
-
-          <label htmlFor="email">
-            email:
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={this.state.email}
-              onChange={this.inputHandle}
-            />
-            {this.state.errors.email ? (
-              <span>{this.messages.email_incorrect}</span>
+              <span>{this.messages.usernameError}</span>
             ) : null}
           </label>
           <label htmlFor="password">
-            password:
+            Password:
             <input
               type="password"
-              id="password"
+              onChange={this.handleInputChange}
               name="password"
-              value={this.state.password}
-              onChange={this.inputHandle}
             />
             {this.state.errors.password ? (
-              <span>{this.messages.password_incorrect}</span>
+              <span>{this.messages.passwordError}</span>
             ) : null}
           </label>
-          <label htmlFor="accept">
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              onChange={this.handleInputChange}
+              name="email"
+            />{" "}
+            {this.state.errors.email ? (
+              <span>{this.messages.emailError}</span>
+            ) : null}
+          </label>
+          <label htmlFor="checkbox">
             <input
               type="checkbox"
-              id="accept"
-              name="accept"
-              checked={this.state.accept}
-              onChange={this.inputHandle}
+              onChange={this.handleInputChange}
+              name="checkbox"
             />
-            I agree all this shit
-            {this.state.errors.accept ? (
-              <span>{this.messages.accept_incorrect}</span>
+            {"I agree    "}
+            {this.state.errors.checkbox ? (
+              <span>{this.messages.checkboxError}</span>
             ) : null}
           </label>
-          <button>Submait</button>
+          <button>Submit</button>
         </form>
       </div>
     );
