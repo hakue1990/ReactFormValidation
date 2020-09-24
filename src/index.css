@@ -18,20 +18,20 @@ form {
   position: relative;
   padding: 50px;
   width: 360px;
-  height: 560px;
+  height: 80vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(41.6, 35.3, 80.4, 0.9);
   border-radius: 30px;
   box-shadow: 0 5px 34px rgba(0, 0, 0, 0.3);
   text-align: center;
   font-size: 20px;
   border: 7px solid black;
-  background: transparent;
   color: white;
   font-size: 16px;
+  padding-bottom: 20px;
 }
 form::after {
   content: "";
@@ -42,5 +42,4 @@ form::after {
   right: 5px;
   border-radius: 30px;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0.1);
 }
