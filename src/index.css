@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   outline: none;
-  font-family: "Baloo Tammudu 2", cursive;
+  font-family: "Montserrat", sans-serif;
   background-color: white;
 }
 .box {
@@ -11,14 +11,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(34, 193, 195);
-  background: linear-gradient(
-    0deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(35, 199, 182, 1) 9%,
-    rgba(38, 214, 150, 1) 30%,
-    rgba(40, 226, 126, 1) 46%,
-    rgba(42, 190, 92, 1) 59%,
-    rgba(45, 253, 69, 0.6977077363896849) 84%
-  );
+  background: URL("./bg.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+form {
+  position: relative;
+  padding: 50px;
+  width: 360px;
+  height: 560px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 5px 34px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 20px;
+  border: 7px solid black;
+  background: transparent;
+}
+form::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  border-radius: 30px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.1);
 }

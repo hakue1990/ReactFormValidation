@@ -17,10 +17,10 @@ class App extends Component {
   };
 
   messages = {
-    usernameError: "nazwa powinna zawierać conajmniej 4 znaki",
-    passwordError: "hasło powinno zawierać conajmniej 6 znaków",
-    emailError: "Brakuje @",
-    checkboxError: "Zaznacz zgode!",
+    usernameError: "at least 4 characters",
+    passwordError: "at least 6 characters",
+    emailError: "missing @",
+    checkboxError: "agree statment",
   };
   handleInputChange = (e) => {
     if (e.target.type === "checkbox") {
@@ -97,6 +97,7 @@ class App extends Component {
       <div className="App">
         <div className="box">
           <form onSubmit={this.handleFormSubmit}>
+            <img src="./avatar.png" alt="avatar" />
             <label htmlFor="user">
               <input
                 type="text"
@@ -143,7 +144,7 @@ class App extends Component {
                 <span>{this.messages.checkboxError}</span>
               ) : null}
             </label>
-            <button>Submit</button>
+            <button>Login</button>
           </form>
         </div>
       </div>
