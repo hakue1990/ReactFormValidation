@@ -95,53 +95,57 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleFormSubmit}>
-          <label htmlFor="user">
-            Username:
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              name="username"
-            />
-            {this.state.errors.username ? (
-              <span>{this.messages.usernameError}</span>
-            ) : null}
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              onChange={this.handleInputChange}
-              name="password"
-            />
-            {this.state.errors.password ? (
-              <span>{this.messages.passwordError}</span>
-            ) : null}
-          </label>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              onChange={this.handleInputChange}
-              name="email"
-            />{" "}
-            {this.state.errors.email ? (
-              <span>{this.messages.emailError}</span>
-            ) : null}
-          </label>
-          <label htmlFor="checkbox">
-            <input
-              type="checkbox"
-              onChange={this.handleInputChange}
-              name="checkbox"
-            />
-            {"I agree    "}
-            {this.state.errors.checkbox ? (
-              <span>{this.messages.checkboxError}</span>
-            ) : null}
-          </label>
-          <button>Submit</button>
-        </form>
+        <div className="box">
+          <form onSubmit={this.handleFormSubmit}>
+            <label htmlFor="user">
+              <input
+                type="text"
+                onChange={this.handleInputChange}
+                name="username"
+                placeholder="Username"
+              />
+              {this.state.errors.username ? (
+                <span>{this.messages.usernameError}</span>
+              ) : null}
+            </label>
+            <label htmlFor="password">
+              <input
+                type="password"
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="Password"
+              />
+              {this.state.errors.password ? (
+                <span>{this.messages.passwordError}</span>
+              ) : null}
+            </label>
+            <label htmlFor="email">
+              <input
+                placeholder="Email"
+                type="email"
+                onChange={this.handleInputChange}
+                name="email"
+              />{" "}
+              {this.state.errors.email ? (
+                <span>{this.messages.emailError}</span>
+              ) : null}
+            </label>
+            <label htmlFor="checkbox">
+              I agree
+              <input
+                className="checkbox"
+                type="checkbox"
+                onChange={this.handleInputChange}
+                name="checkbox"
+                id="checkbox"
+              />
+              {this.state.errors.checkbox ? (
+                <span>{this.messages.checkboxError}</span>
+              ) : null}
+            </label>
+            <button>Submit</button>
+          </form>
+        </div>
       </div>
     );
   }
