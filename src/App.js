@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import background from "./assets/images/bg.jpg";
 
 class App extends Component {
   state = {

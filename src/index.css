@@ -11,8 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: URL("./bg.jpg") no-repeat fixed center;
   background-size: cover;
+  background: url(./assets/images/bg.jpg) no-repeat fixed center;
 }
 form {
   position: relative;
